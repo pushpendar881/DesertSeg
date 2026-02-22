@@ -2,4 +2,5 @@
 models/**/*.pth filter=lfs diff=lfs merge=lfs -text
 models/**/*.pt filter=lfs diff=lfs merge=lfs -text
 *.pt filter=lfs diff=lfs merge=lfs -text
+backend/*.pth filter=lfs diff=lfs merge=lfs -text
 backend/best_model.pth filter=lfs diff=lfs merge=lfs -text
