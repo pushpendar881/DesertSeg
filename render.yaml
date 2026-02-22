@@ -1,0 +1,27 @@
+# Render Blueprint – full DesertSeg stack (frontend + backend)
+# Deploy: Connect this repo in Render, then use "Apply" or create two services manually.
+
+services:
+  # 1) Backend API (FastAPI + PyTorch models)
+  - type: web
+    name: desertseg-api
+    runtime: python
+    region: oregon
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DEEPLABV3_MODEL_PATH
+        value: ../models/DeepLabsV3+/DeepLabV3+.pth
+
+  # 2) Frontend (Next.js) – BACKEND_URL must match your backend service URL
+  - type: web
+    name: desertseg
+    runtime: node
+    region: oregon
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: BACKEND_URL
+        value: https://desertseg-api.onrender.com
