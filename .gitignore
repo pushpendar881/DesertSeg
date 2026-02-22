@@ -16,6 +16,8 @@ dist/
 *.pt
 *.pth
 *.ckpt
+# Exception: track DeepLabV3+ weights via LFS
+!models/DeepLabsV3+/DeepLabV3+.pth
 
 # Virtual environments
 venv/
