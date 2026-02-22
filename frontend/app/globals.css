@@ -1,0 +1,156 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: 240 6% 4%;
+  --foreground: 0 0% 98%;
+  --card: 240 4% 9%;
+  --card-foreground: 0 0% 98%;
+  --popover: 240 4% 9%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 186 68% 72%;
+  --primary-foreground: 0 0% 10%;
+  --secondary: 240 4% 12%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 240 4% 12%;
+  --muted-foreground: 0 0% 62%;
+  --accent: 189 75% 51%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 4% 16%;
+  --input: 240 4% 16%;
+  --ring: 189 75% 51%;
+  --chart-1: 189 75% 51%;
+  --chart-2: 148 64% 73%;
+  --chart-3: 216 73% 53%;
+  --chart-4: 240 4% 40%;
+  --chart-5: 240 4% 60%;
+  --radius: 0.5rem;
+  --sidebar: 240 4% 12%;
+  --sidebar-foreground: 0 0% 98%;
+  --sidebar-primary: 189 75% 51%;
+  --sidebar-primary-foreground: 0 0% 98%;
+  --sidebar-accent: 240 4% 16%;
+  --sidebar-accent-foreground: 0 0% 98%;
+  --sidebar-border: 240 4% 16%;
+  --sidebar-ring: 189 75% 51%;
+  
+  --mint-green: 148 64% 73%;
+  --vibrant-teal: 189 75% 51%;
+  --royal-blue: 216 73% 53%;
+}
+
+.dark {
+  --background: 240 6% 4%;
+  --foreground: 0 0% 98%;
+  --card: 240 4% 9%;
+  --card-foreground: 0 0% 98%;
+  --popover: 240 4% 9%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 186 68% 72%;
+  --primary-foreground: 0 0% 10%;
+  --secondary: 240 4% 12%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 240 4% 12%;
+  --muted-foreground: 0 0% 62%;
+  --accent: 189 75% 51%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 4% 16%;
+  --input: 240 4% 16%;
+  --ring: 189 75% 51%;
+  --chart-1: 189 75% 51%;
+  --chart-2: 148 64% 73%;
+  --chart-3: 216 73% 53%;
+  --chart-4: 240 4% 40%;
+  --chart-5: 240 4% 60%;
+  --sidebar: 240 4% 12%;
+  --sidebar-foreground: 0 0% 98%;
+  --sidebar-primary: 189 75% 51%;
+  --sidebar-primary-foreground: 0 0% 98%;
+  --sidebar-accent: 240 4% 16%;
+  --sidebar-accent-foreground: 0 0% 98%;
+  --sidebar-border: 240 4% 16%;
+  --sidebar-ring: 189 75% 51%;
+}
+
+@theme inline {
+  --font-sans: 'Inter', 'Inter Fallback', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback', monospace;
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: hsl(var(--sidebar));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .gradient-primary {
+    background: linear-gradient(135deg, #88E7B2 0%, #2FC2D9 50%, #2764E7 100%);
+  }
+  
+  .gradient-primary-hover {
+    background: linear-gradient(135deg, #9AEDC0 0%, #3DD0E6 50%, #3B78F4 100%);
+  }
+  
+  .gradient-border {
+    position: relative;
+    background: hsl(var(--card));
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    margin: -2px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, #88E7B2 0%, #2FC2D9 50%, #2764E7 100%);
+  }
+}
