@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -19,6 +19,15 @@ export function VideoDemoSection() {
   const [metadata, setMetadata] = useState<any | null>(null)
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 
+  // Cleanup blob URLs on unmount
+  useEffect(() => {
+    return () => {
+      if (videoSrc && videoSrc.startsWith('blob:')) {
+        URL.revokeObjectURL(videoSrc)
+      }
+    }
+  }, [videoSrc])
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const file = fileInputRef.current?.files?.[0]
@@ -33,19 +42,37 @@ export function VideoDemoSection() {
     try {
       setUploading(true)
       setMetadata(null)
+
       const res = await fetch('/api/predict-video', {
         method: 'POST',
         body: formData,
       })
 
       if (!res.ok) {
-        console.error('Video backend error', await res.text())
+        const errorText = await res.text()
+        console.error('Video backend error', errorText)
         return
       }
 
       const data = await res.json()
       if (data?.video) {
-        setVideoSrc(data.video)
+        // Clean up previous blob URL
+        if (videoSrc && videoSrc.startsWith('blob:')) {
+          URL.revokeObjectURL(videoSrc)
+        }
+
+        // Convert base64 data URI → Blob → Object URL
+        // (server returns data:video/mp4;base64,...)
+        const base64 = data.video.split(',')[1]
+        const byteChars = atob(base64)
+        const byteNums = new Uint8Array(byteChars.length)
+        for (let i = 0; i < byteChars.length; i++) {
+          byteNums[i] = byteChars.charCodeAt(i)
+        }
+        const blob = new Blob([byteNums], { type: 'video/mp4' })
+        const blobUrl = URL.createObjectURL(blob)
+
+        setVideoSrc(blobUrl)
         setMetadata(data.metadata ?? null)
       }
     } catch (err) {
